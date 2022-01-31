@@ -61,7 +61,7 @@ struct Config {
 	 */
 	struct Robot {
 		global double weight = 50; // in KG
-		global double start_x = 100, start_y = 400, start_angle = 0; // Starting pos of robot (100,400,0)
+		global double start_x = 0, start_y = 400, start_angle = 0; // Starting pos of robot (100,400,0)
 		global double maxSpeed = 5, maxAcceleration = 3; // In meters per second
 		global double wheelDiameter = 0.1524; // Size in m
 

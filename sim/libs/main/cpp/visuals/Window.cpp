@@ -9,7 +9,7 @@ Window::Window(double height, double width, std::string name) : Draw(this->_wind
 		this->_background = cv::Mat::zeros(this->_height, this->_width, CV_8UC3);
 	} else {
 		std::string year = std::to_string(Config::Window::field);
-		this->_background = cv::imread(year + ".png", cv::IMREAD_COLOR);
+		this->_background = cv::imread("2022.png", cv::IMREAD_COLOR);
 		cv::resize(this->_background, this->_background, cv::Size(this->_width, this->_height));
 	}
 
