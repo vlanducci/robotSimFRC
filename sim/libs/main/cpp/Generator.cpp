@@ -49,12 +49,12 @@ Spline Generator::buildPath(Spline spline) {
 
     totalLength += segLength;
 
-    std::cout << "Length: " << totalLength << std::endl;
-    std::cout << "Seg Length: " << pointsLength << std::endl;
+    // std::cout << "Length: " << totalLength << std::endl;
+    // std::cout << "Seg Length: " << pointsLength << std::endl;
 
   }
 
-  std::cout << "\nFinal Length: " << totalLength << std::endl;
+  // std::cout << "\nFinal Length: " << totalLength << std::endl;
 
   // Waypoint startPoint = spline.waypoints.front();
   Waypoint endPoint = spline.waypoints.back();
@@ -65,7 +65,7 @@ Spline Generator::buildPath(Spline spline) {
     Waypoint point = CatmullRom::getSplinePoint(actualLength, internalSpline);
     double angle = CatmullRom::getAngleDeg(actualLength, internalSpline);
 
-    std::cout << std::fixed << std::setprecision(5) << "Distance: " << actualLength << ", Angle: " << angle << ", x,y: (" << point.x << "," << point.y << ")" << std::endl;
+    // std::cout << std::fixed << std::setprecision(5) << "Distance: " << actualLength << ", Angle: " << angle << ", x,y: (" << point.x << "," << point.y << ")" << std::endl;
 
     if (point.x < endPoint.x || point.y < endPoint.y) {
       actualLength += _stepSize;
@@ -78,4 +78,27 @@ Spline Generator::buildPath(Spline spline) {
   internalSpline.totalLength = totalLength;
   internalSpline.actualLength = actualLength;
   return internalSpline;
+}
+
+double Generator::getAngle(float splineAngle, float encoderVals) {
+  double rightMotorVal = 0;
+  double leftMotorVal = 0;
+
+  // Spline internalSpline = spline;
+
+  std::cout << splineAngle << std::endl;
+  std::cout << encoderVals << std::endl;
+
+  if (encoderVals < splineAngle) {
+    rightMotorVal = 1;
+    leftMotorVal = 0;
+  } else if (encoderVals < splineAngle) {
+    rightMotorVal = 0;
+    leftMotorVal = 1;
+  } else {
+    rightMotorVal = 1;
+    leftMotorVal = 1;
+  }
+
+  return rightMotorVal, leftMotorVal;
 }

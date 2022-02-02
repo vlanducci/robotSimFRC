@@ -16,6 +16,7 @@ struct Spline {
   Waypoint entryCtrl, exitCtrl;
   double totalLength = 0;
   double actualLength = 0;
+  double angle = 0;
 };
 
 struct CatmullRom {
