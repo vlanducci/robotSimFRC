@@ -1,3 +1,4 @@
+#pragma once
 #include <math.h>
 #include <iostream>
 #ifdef __linux__ 
@@ -10,11 +11,11 @@
 
 class Generator {
  public:
-  static Spline buildPath(Spline spline);
+  static int buildPath(Spline &spline, int removeNodes = 0);
   static double calculateSegLength(int node, Spline spline);
-  static double getAngle(float splineAngle, float encoderVals);
-
-  double splineAngle = 0;
+  static void setStepSize(double step) {
+    _stepSize = step;
+  }
  private:
-  static constexpr double _stepSize = 0.001;  // change this later!!
+  static double _stepSize;
 };

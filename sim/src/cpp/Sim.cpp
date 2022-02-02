@@ -13,28 +13,27 @@ Encoder leftEnc{0};
 Encoder rightEnc{1};
 
 Spline spline {{
-  {2,1},
-  {3,0}},
+  {0,0},{1,0},{2,0},{3,0}
+}};
 
-  {1,0}, {4,1}
-};
-
-Spline outputSpline;
+void initSpline() {
+  Generator::buildPath(spline);
+}
 
 /**
  * Initializer (Updates once)
  */
 void Sim::Init() {
-
+  initSpline();
+  std::cout << "Total Length: " << spline.totalLength << std::endl;
 }
 
 /**
  * Periodic Update
  */
 void Sim::Periodic() {
-  // outputSpline = Generator::buildPath(spline);
-  motors = Generator::getAngle(4, 1);
-  std::cout << "\n" << motors << std::endl;
+
+  // std::cout << "\n" << motors << std::endl;
 
   m1.set(0.5);
   m3.set(0.5);
