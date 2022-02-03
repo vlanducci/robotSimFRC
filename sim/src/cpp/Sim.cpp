@@ -20,6 +20,10 @@ Spline spline {{
 
 int output = 0;
 SplinePoint locationOnPath = {0,0};
+double leftEncVal = 0;
+double rightEncVal = 0;
+double avgEncVal = 0;
+double totalLength = 0;
 
 /**
  * Initializer (Updates once)
@@ -33,7 +37,12 @@ void Sim::Init() {
  * Periodic Update
  */
 void Sim::Periodic() {
-  locationOnPath = RobotStuff::locationOnPath(leftEnc.getRotations(), spline.totalLength, spline);
+  leftEncVal = leftEnc.getRotations();
+  rightEncVal = rightEnc.getRotations();
+  avgEncVal = (leftEncVal + rightEncVal) / 2;
+  totalLength = spline.totalLength;
+
+  locationOnPath = RobotStuff::locationOnPath(avgEncVal, totalLength, spline);
   m1.set(0.5);
   m3.set(0.5);
   // std::cout << "Encoder Rotations: " << leftEnc.getRotations() << std::endl;

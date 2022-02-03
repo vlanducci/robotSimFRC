@@ -6,10 +6,12 @@
   #include <iomanip>
 #endif
 
+#include "Splines.h"
+
 
 class RobotStuff {
  public:
-  locationOnPath(double encoderRotations, double splineLength, Spline spline);
+  static SplinePoint locationOnPath(double encoderRotations, double splineLength, Spline spline);
   static double findAngle();
 
  private:

@@ -7,7 +7,8 @@ SplinePoint RobotStuff::locationOnPath(double encoderRotations, double splineLen
 
   std::cout << "Rotations: " << encoderRotations << ", Meters: " << meters << ", t: " << t << std::endl;
 
-  SplinePoint robotCoords = CatmullRom::getSplinePoint(t, spline);
+  SplinePoint robotCoords;
+  robotCoords = CatmullRom::getSplinePoint(t, spline);
 
   return robotCoords;
 }
