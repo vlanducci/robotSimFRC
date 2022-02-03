@@ -9,7 +9,7 @@
 
 class RobotStuff {
  public:
-  static SplinePoint locationOnPath(double encoderRotations, double splineLength, Spline spline);
+  locationOnPath(double encoderRotations, double splineLength, Spline spline);
   static double findAngle();
 
  private:
