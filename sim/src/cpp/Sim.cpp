@@ -30,9 +30,9 @@ void Sim::Init() {
  * Periodic Update
  */
 void Sim::Periodic() {
-  outputSpline = Generator::buildPath(spline);
+  // outputSpline = Generator::buildPath(spline);
 
-  m1.set(0);
-  m3.set(0);
+  m1.set(1);
+  m3.set(1);
   std::cout << "Encoder: " << leftEnc.getRotations() << std::endl;
 }
