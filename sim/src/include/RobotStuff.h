@@ -14,6 +14,7 @@ class RobotStuff {
   static float tValue(double encoderRotations, double splineLength);
   static SplinePoint locationOnPath(float t, Spline spline);
   static double followSpline(float t, Spline spline);
+  static double dist2t(double distance, Spline spline);
 
  private:
   float t = 0.0;

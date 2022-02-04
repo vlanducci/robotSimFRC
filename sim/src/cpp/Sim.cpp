@@ -6,7 +6,7 @@
 #include "RobotStuff.h"
 #include "Splines.h"
 
-double rotations = 16/32; // 0.5 rotations per meter
+double rotsPerMeter = (32/16); // 0.5 rotations per meter
 
 double motors = 0;
 
@@ -15,7 +15,7 @@ Encoder leftEnc{0};
 Encoder rightEnc{1};
 
 Spline spline {{
-  {0,0},{1,0},{2,0},{4,0}
+  {0,0},{1,0},{2,2},{3,0},{4,0}
 }};
 
 int output = 0;
@@ -37,18 +37,38 @@ void Sim::Init() {
  * Periodic Update
  */
 void Sim::Periodic() {
+  double leftPower = 0, rightPower = 0;
+
   leftEncVal = leftEnc.getRotations();
   rightEncVal = rightEnc.getRotations();
   avgEncVal = (leftEncVal + rightEncVal) / 2;
 
+  double distance = avgEncVal/2;
+
+  std::cout << "Average Encoder: " << avgEncVal << std::endl;
+  std::cout << "Average Meter: " << distance << std::endl;
+  std::cout << "Total Lenght: " << spline.totalLength << std::endl;
+
   totalLength = spline.totalLength;
 
-  float t = RobotStuff::tValue(avgEncVal, totalLength);
+  // Main follower
+  if (distance < spline.totalLength) {
+    float t = RobotStuff::dist2t(distance, spline);
+    // std::cout << "t value: " << t << std::endl;
 
-  locationOnPath = RobotStuff::locationOnPath(t, spline);
-  double motorSpeeds = RobotStuff::followSpline(t, spline);
+    leftPower = 0.1;
+    rightPower = 0.1;
 
-  m1.set(0.1);
-  m3.set(0.1);
+    double goalAngle = CatmullRom::getSplineAngleDeg(t, spline);
+    double robotAngle = World::getGyro(0);
+
+    double angleError = (goalAngle - robotAngle) / 180;
+
+    leftPower += angleError;
+    rightPower -= angleError;
+  }
+
+  m1.set(leftPower);
+  m3.set(rightPower);
   // std::cout << "Encoder Rotations: " << leftEnc.getRotations() << std::endl;
 }

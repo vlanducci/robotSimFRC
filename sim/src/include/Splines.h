@@ -109,7 +109,7 @@ struct CatmullRom {
    * Get angle in radians based from t value and spline
    * returns waypoint and flag
    */
-  virtual double getSplineAngleRad(float t, Spline spline) {
+  static double getSplineAngleRad(float t, Spline spline) {
     SplinePoint gradientPoint = getSplineGradientPoint(t, spline);
     if (gradientPoint.flag != -1) {
       return atan2(gradientPoint.waypoint.y, gradientPoint.waypoint.x);
@@ -121,7 +121,7 @@ struct CatmullRom {
   /**
    * Get angle in degrees based from t value and spline
    */
-  virtual double getSplineAngleDeg(double t, Spline spline) {
+  static double getSplineAngleDeg(double t, Spline spline) {
     return (getSplineAngleRad(t, spline) * 180 / M_PI); // convert radians to degrees
   }
 };
