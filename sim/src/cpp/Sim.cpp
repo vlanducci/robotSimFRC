@@ -15,7 +15,7 @@ Encoder leftEnc{0};
 Encoder rightEnc{1};
 
 Spline spline {{
-  {0,0},{1,0},{2,0},{3,0}
+  {0,0},{1,0},{2,0},{4,0}
 }};
 
 int output = 0;
@@ -40,10 +40,15 @@ void Sim::Periodic() {
   leftEncVal = leftEnc.getRotations();
   rightEncVal = rightEnc.getRotations();
   avgEncVal = (leftEncVal + rightEncVal) / 2;
+
   totalLength = spline.totalLength;
 
-  locationOnPath = RobotStuff::locationOnPath(avgEncVal, totalLength, spline);
-  m1.set(0.5);
-  m3.set(0.5);
+  float t = RobotStuff::tValue(avgEncVal, totalLength);
+
+  locationOnPath = RobotStuff::locationOnPath(t, spline);
+  double motorSpeeds = RobotStuff::followSpline(t, spline);
+
+  m1.set(0.1);
+  m3.set(0.1);
   // std::cout << "Encoder Rotations: " << leftEnc.getRotations() << std::endl;
 }

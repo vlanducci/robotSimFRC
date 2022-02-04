@@ -11,9 +11,11 @@
 
 class RobotStuff {
  public:
-  static SplinePoint locationOnPath(double encoderRotations, double splineLength, Spline spline);
-  static double findAngle();
+  static float tValue(double encoderRotations, double splineLength);
+  static SplinePoint locationOnPath(float t, Spline spline);
+  static double followSpline(float t, Spline spline);
 
  private:
-  
+  float t = 0.0;
+  double totalRotations = 0;
 };
